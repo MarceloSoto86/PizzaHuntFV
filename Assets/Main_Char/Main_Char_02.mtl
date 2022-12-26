@@ -1,0 +1,13 @@
+# Blender 3.2.2 MTL File: 'Main_Char_02.blend'
+# www.blender.org
+
+newmtl Base
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.388300 0.110076 0.000000
+Ks 0.475325 0.475325 0.475325
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/mas_c/Desktop/Unity Projects/TP Final/24-12-2022/Prototype_24_12/Assets/Main_Char/Base.png
