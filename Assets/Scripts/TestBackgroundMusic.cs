@@ -10,7 +10,19 @@ public class TestBackgroundMusic : MonoBehaviour
 
     private void Awake()
     {
-        if (backgroundMusic == null)
+
+        GameObject[] musicObj = GameObject.FindGameObjectsWithTag("GameMusic");
+
+        if(musicObj.Length > 1)
+        {
+            Destroy(this.gameObject);
+        }
+
+        DontDestroyOnLoad(this.gameObject);
+
+
+
+        /*if (backgroundMusic == null)
         {
             backgroundMusic = this;
             DontDestroyOnLoad(backgroundMusic);
@@ -20,6 +32,6 @@ public class TestBackgroundMusic : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 }
