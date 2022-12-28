@@ -41,15 +41,17 @@ public class CocaController : MonoBehaviour
         }*/
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-       //other.gameObject.SetActive(false);
-        cocaObtenida.SetActive(true);
-        objetoCoca.SetActive(false);
-        _isCocaObtained = true;
-        Debug.Log("Coca Obtenida!");
-        cocaVacia.SetActive(false);
-
+        //other.gameObject.SetActive(false);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            cocaObtenida.SetActive(true);
+            objetoCoca.SetActive(false);
+            _isCocaObtained = true;
+            Debug.Log("Coca Obtenida!");
+            cocaVacia.SetActive(false);
+        }
         /*        Time.timeScale = 0;*/
 
     }

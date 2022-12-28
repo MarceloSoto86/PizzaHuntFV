@@ -24,32 +24,34 @@ public class PowerUps : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (powerType == 0) // Código de power-up GIGANTE
+        if (other.gameObject.CompareTag("Player"))
         {
-            isPowered = true;
-            other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(2f, 2f, 2f));
-            Debug.Log("It's so big!");
+            if (powerType == 0) // Código de power-up GIGANTE
+            {
+                isPowered = true;
+                other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(2f, 2f, 2f));
+                Debug.Log("It's so big!");
 
-            gameObject.GetComponent<Renderer>().enabled = false;
+                gameObject.GetComponent<Renderer>().enabled = false;
+            }
+            if (powerType == 1) // Código de power-up PEQUEÑO
+            {
+                isPowered = true;
+                other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(0.1f, 0.1f, 0.1f));
+                Debug.Log("Ok, so basically im very smol");
+
+                gameObject.GetComponent<Renderer>().enabled = false;
+            }
+            if (powerType == 2) // Código de power-up SUPER SALTO
+            {
+                isPowered = true;
+                other.GetComponentInChildren<CharController>().fuerzaDeSalto = 10f;
+                //other.GetComponentInChildren<PlayerMovement>().JumpHeight = 3f;
+                Debug.Log("Gave my love to a shooting star :'(");
+
+                gameObject.GetComponent<Renderer>().enabled = false;
+            }
         }
-        if (powerType == 1) // Código de power-up PEQUEÑO
-        {
-            isPowered = true;
-            other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(0.1f, 0.1f, 0.1f));
-            Debug.Log("Ok, so basically im very smol");
-
-            gameObject.GetComponent<Renderer>().enabled = false;
-        }
-        if (powerType == 2) // Código de power-up SUPER SALTO
-        {
-            isPowered = true;
-            other.GetComponentInChildren<CharController>().fuerzaDeSalto = 10f;
-            //other.GetComponentInChildren<PlayerMovement>().JumpHeight = 3f;
-            Debug.Log("Gave my love to a shooting star :'(");
-
-            gameObject.GetComponent<Renderer>().enabled = false;
-        }
-
     }
     void timerEnded()
     {
