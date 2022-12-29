@@ -10,12 +10,13 @@ public class PowerUps : MonoBehaviour
     public GameObject Player;
     [SerializeField] float powerTime = 10f;
     [SerializeField] int powerType = 0;
+    [SerializeField] PostProcessProfile profile;
+    [SerializeField] GameObject PostProController;
 
     [SerializeField] private PostProcessVolume  _postProcessVolume;
 
     bool isPowered = false;
-
-
+    Vector3 originalScale;
 
     void Update()
     {
@@ -35,25 +36,29 @@ public class PowerUps : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            originalScale = transform.localScale;
+            PostProController.GetComponent<PostProController>().ChangeProfile(profile);
             gameObject.GetComponent<MeshRenderer>().enabled = false;
             gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-            if (powerType == 0) // Código de power-up GIGANTE
+            
+
+            if (powerType == 0) // CÃ³digo de power-up GIGANTE
             {
                 isPowered = true;
-                other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(2f, 2f, 2f));
+                other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(originalScale.x +1, originalScale.y + 1, originalScale.z + 1));
                 Debug.Log("It's so big!");
 
                 gameObject.GetComponent<Renderer>().enabled = false;
             }
-            if (powerType == 1) // Código de power-up PEQUEÑO
+            if (powerType == 1) // CÃ³digo de power-up PEQUEÃ‘O
             {
                 isPowered = true;
-                other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(0.1f, 0.1f, 0.1f));
+                other.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(originalScale.x -0.8f, originalScale.y -0.8f, originalScale.z -0.8f));
                 Debug.Log("Ok, so basically im very smol");
 
                 gameObject.GetComponent<Renderer>().enabled = false;
             }
-            if (powerType == 2) // Código de power-up SUPER SALTO
+            if (powerType == 2) // CÃ³digo de power-up SUPER SALTO
             {
                 isPowered = true;
                 other.GetComponentInChildren<PlayerMovement>().jumpForce = 10f;
@@ -70,11 +75,12 @@ public class PowerUps : MonoBehaviour
     void timerEnded()
     {
         Debug.Log("Time ended!");
-        Player.transform.localScale = Vector3.Scale(Vector3.one, new Vector3(1f, 1f, 1f));
+        Player.transform.localScale = originalScale;
         Player.GetComponentInChildren<PlayerMovement>().jumpForce = 5f;
         _postProcessVolume.isGlobal = false;
         _postProcessVolume.weight = 0;
         //Player.GetComponentInChildren<PlayerMovement>().JumpHeight = 1.2f;
     }
+    
 
 }
