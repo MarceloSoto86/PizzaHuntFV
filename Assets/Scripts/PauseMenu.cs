@@ -10,8 +10,8 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] GameObject pauseMenu;
    
-    [SerializeField] GameObject loadButton;
-    [SerializeField] GameObject saveButton;
+    //[SerializeField] GameObject loadButton;
+    //[SerializeField] GameObject saveButton;
 
     void Update()
     {
@@ -47,8 +47,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         isGamePaused = true;
         optionsButton.SetActive(true);
-        loadButton.SetActive(true);
-        saveButton.SetActive(true);
+        //loadButton.SetActive(true);
+        //saveButton.SetActive(true);
     }
 
 
