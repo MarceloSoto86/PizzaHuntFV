@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpCooldown;
     public float airMultiplier;
     bool readyToJump = true;
+    [SerializeField] Animator anim;
 
     public KeyCode jumpKey = KeyCode.Space;
 
@@ -42,7 +43,13 @@ public class PlayerMovement : MonoBehaviour
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
+            
         }
+        else
+        {
+            PlayerFalling();
+        }
+
     }
     // Update is called once per frame
     void Update()
@@ -62,27 +69,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        //moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-
         Vector3 movement = new Vector3(horizontalInput, 0.0f, verticalInput);
 
         if (movement != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), 0.2F);
+            anim.SetBool("Running", true);
+        }
+        else
+        {
+            anim.SetBool("Running", false);
         }
 
-
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
-
-        //if (grounded)
-        //{
-        //    rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-        //}
-        //else if (!grounded)
-        //{
-        //    rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-        //}
     }
     private void SpeedControl()
     {
@@ -97,9 +96,16 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        anim.SetBool("Jump", true);
     }
     void ResetJump()
     {
         readyToJump = true;
+    }
+    void PlayerFalling()
+    {
+        anim.SetBool("Jump", false);
+        anim.SetBool("Grounded", false);
+        //readyToJump = false;
     }
 }
