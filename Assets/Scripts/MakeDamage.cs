@@ -8,7 +8,7 @@ public class MakeDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             other.GetComponent<HealthPoints>().RestarVida(cantidad);
         }
@@ -16,7 +16,7 @@ public class MakeDamage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             other.GetComponent<HealthPoints>().RestarVida(cantidad);
         }

@@ -102,10 +102,10 @@ public class HealthPoints : MonoBehaviour
 
     IEnumerator FrenarVelocidad()
     {
-        var velocidadActual = GetComponent<CharController>().movementSpeed;
-        GetComponent<CharController>().movementSpeed = 0;
+        var velocidadActual = GetComponent<PlayerMovement>().moveSpeed;
+        GetComponent<PlayerMovement>().moveSpeed = 0;
         yield return new WaitForSeconds(tiempo_frenado);
-        GetComponent<CharController>().movementSpeed = velocidadActual;
+        GetComponent<PlayerMovement>().moveSpeed = velocidadActual;
     }
 
     /*private void OnTriggerEnter(Collider other)

@@ -11,9 +11,11 @@ public class PizzaPickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Player"))
         pizza = player.transform.GetChild(1).GetChild(0).gameObject;
         mill.GetComponent<SelfRotation>().zRotation = millRotationSpeed;
         pizza.SetActive(true);
         Destroy(gameObject);
+        Debug.Log("Caja de Pizza Obtenida! Camino a la salida activado!");
     }
 }
