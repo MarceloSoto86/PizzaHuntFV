@@ -9,67 +9,24 @@ public class CocaController : MonoBehaviour
     [SerializeField] GameObject objetoCoca;
     [SerializeField] GameObject cocaVacia;
     public bool _isCocaObtained = false;
-    
 
-    
-
-
-
-    
-
-  
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log(_isCocaObtained);
-      
-
-
-
-    }
-
-    private void Update()
-    {
-        /*if (!_isCocaObtained)
-        {
-            mostrarCocaVacia();
-
-        }
-        else
-        {
-            mostrarCocaLlena();
-        }*/
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        //other.gameObject.SetActive(false);
+        // Este bloque de código se ejecutará cuando el jugador entre en contacto con el objeto de la cocaína.
         if (other.gameObject.CompareTag("Player"))
         {
-            cocaObtenida.SetActive(true);
-            objetoCoca.SetActive(false);
-            _isCocaObtained = true;
+            cocaObtenida.SetActive(true); // Mostrar el mensaje de que la cocaína ha sido obtenida.
+            objetoCoca.SetActive(false); // Desactivar el objeto de la cocaína en la escena.
+            _isCocaObtained = true; // Actualizar la variable para indicar que la cocaína ha sido obtenida.
             Debug.Log("Coca Obtenida!");
-            cocaVacia.SetActive(false);
+            cocaVacia.SetActive(false); // Desactivar el objeto de la cocaína vacía en la escena.
         }
-        /*        Time.timeScale = 0;*/
-
     }
-
-    /*public void mostrarCocaVacia()
-    {
-        cocaVacia.SetActive(true);
-        //* Time.timeScale = 1f;*//*
-        _isCocaObtained = false;
-    }*/
-
-   /* public void mostrarCocaLlena()
-    {
-        
-        cocaObtenida.SetActive(true);
-        //*Time.timeScale = 0f;*/ /*Revisar el Player*//*
-        _isCocaObtained = true;
-    }
-*/
 }
     

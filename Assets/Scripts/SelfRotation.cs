@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SelfRotation : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // Variables públicas para controlar la velocidad de rotación en cada eje
     public float xRotation;
     public float yRotation;
     public float zRotation;
 
-    // Update is called once per frame
+    // Este método se llama una vez por frame y rota el objeto en función de las velocidades de rotación definidas
     void Update()
     {
         transform.Rotate(xRotation, yRotation, zRotation);

@@ -5,16 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class TestBackgroundMusic : MonoBehaviour
 {
-
+    // Variable estática para almacenar la instancia de música de fondo
     private static TestBackgroundMusic backgroundMusic;
 
-    // CÓDIGO FUNCIONANDO:
-
+    // Este método se ejecuta cuando el objeto se activa y se asegura de que solo haya una instancia de música de fondo en la escena
     private void Awake()
     {
 
-        GameObject[] musicObj = GameObject.FindGameObjectsWithTag("GameMusic");
+        GameObject[] musicObj = GameObject.FindGameObjectsWithTag("GameMusic"); // Busca todos los objetos con el tag "GameMusic" en la escena
 
+        // Si hay más de un objeto con el tag "GameMusic", destruye este objeto para evitar duplicados
         if (musicObj.Length > 1)
         {
             Destroy(this.gameObject);
@@ -24,43 +24,4 @@ public class TestBackgroundMusic : MonoBehaviour
 
 
     }
-        // CÓDIGO VIEJO:
-
-
-
-
-        /*if (backgroundMusic == null)
-        {
-            backgroundMusic = this;
-            DontDestroyOnLoad(backgroundMusic);
-
-        }
-
-        else
-        {
-            Destroy(gameObject);
-        }*/
-        //}
-
-        // 2DO CÓDIGO PRUEBA
-
-        /*public static TestBackgroundMusic instance;
-
-        void Awake()
-        { 
-        if (instance != null)
-                Destroy(gameObject);
-        else
-            {
-                instance = this;
-                DontDestroyOnLoad(this.gameObject);
-            }
-                    }
-
-        private void Update()
-        {
-            if (SceneManager.GetActiveScene().name == "Nivel 1")
-                TestBackgroundMusic.instance.GetComponent<AudioSource>().Pause();
-        }*/
-
-    }
+ }

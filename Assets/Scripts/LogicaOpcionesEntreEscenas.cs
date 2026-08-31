@@ -18,11 +18,8 @@ public class LogicaOpcionesEntreEscenas : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MostrarOpciones();
-        }
-        
-        
+        }  
     }
-
 
     // Activa el panel de opciones
     public void MostrarOpciones()

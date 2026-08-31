@@ -1,35 +1,9 @@
-/** using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using UnityEngine;
-
-public class SawTraps : MonoBehaviour
-{
-    [SerializeField] float speed = 1f;
-    [SerializeField] float lerpSpeed = 0.5f;
-    [SerializeField] GameObject pointA, pointB;
-    [SerializeField] AnimationCurve _curve;
-    [SerializeField] private float _current = 0f, _target = 1f;
-    void Update()
-    {
-        //_target = Random.value;
-        //_current = Mathf.MoveTowards(_current, _target, speed * Time.deltaTime);
-        //float z = Mathf.PingPong(Time.time * speed, 1) * 5.24f - 0.12f;
-        //transform.position = Vector3.Lerp(pointA.transform.position, pointB.transform.position, _curve.Evaluate(_current));
-        //transform.position = new Vector3(z, transform.position.y, transform.position.z);
-        float y = Mathf.PingPong(Time.time * speed, 1) * 2.24f - 1.12f;
-        transform.position = Vector3.Lerp(transform.position, pointA.transform.position, y);
-    }
-}
-** */
-
 using UnityEngine;
 using System.Collections;
 
 public class SawTraps : MonoBehaviour
 {
-
-
+    // Este script controla el movimiento de las sierras en la escena. Se encarga de moverlas hacia adelante y hacia atrás entre dos posiciones.
     public Transform targetPos;
     public Transform startPos;
 
@@ -38,24 +12,29 @@ public class SawTraps : MonoBehaviour
 
     void Update()
     {
-
+        // Si la sierra se está moviendo hacia adelante, se mueve hacia la posición objetivo. Si está cerca de la posición objetivo, cambia de dirección y se mueve hacia atrás.
         if (towards)
         {
+            // Mueve la sierra hacia la posición objetivo
             transform.LookAt(targetPos.position);
-            transform.position += transform.forward * speed * Time.deltaTime;
+            transform.position += transform.forward * speed * Time.deltaTime; // Mueve la sierra hacia adelante
+
+            // Si la sierra está cerca de la posición objetivo, cambia de dirección y se mueve hacia atrás
             if (Vector3.Distance(transform.position, targetPos.position) < 1.0f)
             {
-                towards = false;
+                towards = false; // Cambia la dirección de la sierra
             }
         }
         else
         {
-            transform.LookAt(startPos.position);
-            transform.position += transform.forward * speed * Time.deltaTime;
+            transform.LookAt(startPos.position); // Mueve la sierra hacia la posición inicial
+            transform.position += transform.forward * speed * Time.deltaTime; // Mueve la sierra hacia atrás
+
+            // Si la sierra está cerca de la posición inicial, cambia de dirección y se mueve hacia adelante
             if (Vector3.Distance(transform.position, startPos.position) < 1.0f)
             {
                 {
-                    towards = true;
+                    towards = true; // Cambia la dirección de la sierra
                 }
             }
         }

@@ -5,16 +5,12 @@ using UnityEngine.UI;
 
 public class VolumeController : MonoBehaviour
 {
+    // Variables públicas para el slider de volumen, el valor del slider y la imagen de mute
     public Slider volumeSlider; 
-    //public GameObject ObjectMusic;
-
-
     public float sliderValue;
     public Image imagenMute;
 
-
-    //Código VIEJO debajo:
-
+    // Este método se ejecuta al iniciar la escena y establece el valor del slider de volumen según lo guardado en PlayerPrefs, actualiza el volumen del audio y revisa si el volumen es 0 para activar o desactivar la imagen de mute
     private void Start()
     {
         volumeSlider.value = PlayerPrefs.GetFloat("volumenAudio", sliderValue);
@@ -22,16 +18,16 @@ public class VolumeController : MonoBehaviour
         RevisarSiEstoyMute();
     }
 
+    // Este método se ejecuta cuando el jugador cambia el valor del slider de volumen y actualiza el volumen del audio y guarda el valor en PlayerPrefs
     public void ChangeSlider(float valor)
     {
         volumeSlider.value = valor;
         PlayerPrefs.SetFloat("volumenAudio", sliderValue);
         AudioListener.volume = volumeSlider.value;
         RevisarSiEstoyMute();
-
-
     }
 
+    // Este método revisa si el volumen es 0 y activa o desactiva la imagen de mute en consecuencia
     public void RevisarSiEstoyMute()
     {
         if (volumeSlider.value == 0)
@@ -43,50 +39,4 @@ public class VolumeController : MonoBehaviour
             imagenMute.enabled = false;
         }
     }
-
-
-
-
-
-    //3er código PRUEBA
-
-    //private float MusicVolume = 0f; // Agregado en nuevo código
-    //private AudioSource AudioSource; // Agregado en nuevo código
-
-    // CÓDIGO NUEVO:
-
-    /*private void Start()
-    {
-        ObjectMusic = GameObject.FindWithTag("GameMusic");
-        AudioSource = ObjectMusic.GetComponent<AudioSource>();
-
-        // Set Volume
-        MusicVolume = PlayerPrefs.GetFloat("volume");
-        AudioSource.volume = MusicVolume;
-        volumeSlider.value = MusicVolume;
-
-
-
-    }
-
-    private void Update()
-    {
-        AudioSource.volume = MusicVolume;
-        PlayerPrefs.SetFloat("volume", MusicVolume);
-    }
-
-    public void VolumeUpdater(float volume)
-    {
-        MusicVolume = volume;
-    }
-
-    public void MusicReset()
-    {
-        PlayerPrefs.DeleteKey("volume");
-        AudioSource.volume = 1;
-        volumeSlider.value = 1;
-    }*/
-
-
-
 }

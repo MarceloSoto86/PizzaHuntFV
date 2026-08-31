@@ -4,70 +4,30 @@ using UnityEngine;
 
 public class PizzaObtenidaUI : MonoBehaviour
 {
+
+    //NOTA: VERIFICAR SI ESTE SCRIPT HACE ALGO EXTRAÑAMENTE SIMILAR A PizzaPickUp.cs, SI ES ASÍ, ELIMINAR UNO DE LOS DOS SCRIPTS PARA EVITAR CONFLICTOS
+    // Este script controla la lógica de obtención de la caja de pizza en el juego. Cuando el jugador entra en contacto con el objeto de la caja de pizza, se activa la UI correspondiente y se desactiva el objeto de la caja en el mundo del juego.
     [SerializeField] GameObject cajaDePizzaObtenida;
     [SerializeField] GameObject objetoCaja;
     [SerializeField] GameObject cajaVacia;
     public bool _isCajaObtained = false;
 
-
-
-
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log(_isCajaObtained);
-
-
-
-
-    }
-
-    private void Update()
-    {
-        /*if (!_isCocaObtained)
-        {
-            mostrarCocaVacia();
-
-        }
-        else
-        {
-            mostrarCocaLlena();
-        }*/
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        //other.gameObject.SetActive(false);
+        // Detecta si el jugador entra en contacto con el objeto de la caja de pizza
         if (other.gameObject.CompareTag("Player"))
         {
             cajaDePizzaObtenida.SetActive(true);
             objetoCaja.SetActive(false);
             _isCajaObtained = true;
-            Debug.Log("Caja De Pizza Obtenida!");
+            Debug.Log("<color=cyan>Caja De Pizza Obtenida!</color>");
             cajaVacia.SetActive(false);
         }
-        /*        Time.timeScale = 0;*/
-
     }
-
-    /*public void mostrarCocaVacia()
-    {
-        cocaVacia.SetActive(true);
-        //* Time.timeScale = 1f;*//*
-        _isCocaObtained = false;
-    }*/
-
-    /* public void mostrarCocaLlena()
-     {
-
-         cocaObtenida.SetActive(true);
-         //*Time.timeScale = 0f;*/ /*Revisar el Player*//*
-         _isCocaObtained = true;
-     }
- */
 }

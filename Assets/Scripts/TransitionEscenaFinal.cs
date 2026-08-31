@@ -5,18 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TransitionEscenaFinal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // Este script se encarga de cambiar a la escena "FinalDemo" cuando el objeto colisiona con otro objeto.
     private void OnCollisionEnter(Collision collision)
     {
         SceneManager.LoadScene("FinalDemo");

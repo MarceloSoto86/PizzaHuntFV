@@ -4,22 +4,9 @@ using UnityEngine;
 
 public class LogicaPies : MonoBehaviour
 {
+    // Este script se encarga de detectar si el personaje está en contacto con el suelo para permitirle saltar.
     public CharController logicaPies;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
+    // Activamos la variable puedoSaltar del script CharController cuando el personaje está en contacto con el suelo y la desactivamos cuando no lo está.
     private void OnTriggerStay(Collider other)
     {
         logicaPies.puedoSaltar = true;

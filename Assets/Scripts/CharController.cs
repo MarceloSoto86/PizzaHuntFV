@@ -4,136 +4,84 @@ using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
-    
+    // Este script controla el movimiento del personaje y la animaci贸n del mismo.
+    // El personaje se mueve en funci贸n de la entrada del usuario y se anima en consecuencia.
+
     private new Rigidbody rb;
     public float movementSpeed;
     public float fuerzaDeSalto = 8f;
     public float jumpCooldown;
     public float airMultiplier;
 
-    public float groundDrag;
-    public float playerHeight;
-    public bool puedoSaltar;
+    public float groundDrag; // Gravedad que se aplica al personaje cuando est谩 en el suelo
+    public float playerHeight; // Altura del personaje
     public float velocidadRotacion = 200.0f;
-    
-    public float x, y;
+    public bool puedoSaltar;
 
-    //Variables animaci髇
+    public float x, y; // Variables para el movimiento del personaje en el eje X y Y
+
+    //Variables animaci贸n
 
     private Animator playerAnimController;
-    
 
     // Start is called before the first frame update
     void Start()
     {
+        // Inicializamos el Rigidbody del personaje y la variable puedoSaltar
         rb = GetComponent<Rigidbody>();
         puedoSaltar = false;
         playerAnimController = GetComponent<Animator>();
 
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
+        // Obtenemos la entrada del usuario para el movimiento del personaje
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
 
-        Vector3 velocity = Vector3.zero;
+        Vector3 velocity = Vector3.zero; // Inicializamos la velocidad del personaje a cero
 
-
-
+        // Si el personaje se est谩 moviendo, calculamos la direcci贸n del movimiento y la velocidad
         if (hor != 0 || ver != 0)
         {
+            // Calculamos la direcci贸n del movimiento en funci贸n de la entrada del usuario y la orientaci贸n del personaje
             Vector3 direction = (transform.forward * ver + transform.right * hor).normalized;
-
+            // Calculamos la velocidad del personaje en funci贸n de la direcci贸n del movimiento y la velocidad de movimiento
             velocity = direction * movementSpeed;
-            playerAnimController.SetFloat("PlayerWalkVelocity", movementSpeed); //Comentar si no funciona porque es con otras variables que no est醤 en este script
+            playerAnimController.SetFloat("PlayerWalkVelocity", movementSpeed); //Comentar si no funciona porque es con otras variables que no est谩n en este script
         }
 
-        velocity.y = rb.velocity.y;
-        rb.velocity = velocity;
+        // Aplicamos la velocidad calculada al Rigidbody del personaje, manteniendo la velocidad vertical actual
+        velocity.y = rb.linearVelocity.y;
+        rb.linearVelocity = velocity;
 
+        // Rotamos el personaje en funci贸n de la entrada del usuario y la velocidad de rotaci贸n
         transform.Rotate(0, hor * Time.deltaTime * velocidadRotacion, 0);
         //playerAnimController.SetFloat("PlayerVerticalVelocity", velocity.y);
 
-        
-
-
+        // Comprobamos si el personaje puede saltar y aplicamos la fuerza de salto si se presiona la tecla de salto
         if (puedoSaltar)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
                 playerAnimController.SetBool("salte",true) ;
-                rb.AddForce(new Vector3(0,fuerzaDeSalto,0),ForceMode.Impulse);
+                rb.AddForce(new Vector3(0,fuerzaDeSalto,0),ForceMode.Impulse); // Aplicamos la fuerza de salto al Rigidbody del personaje
             }
-            playerAnimController.SetBool("IsGrounded", true);
+            playerAnimController.SetBool("IsGrounded", true); // Si el personaje puede saltar, significa que est谩 en el suelo
         }
         else
         {
-            EstoyCayendo();
+            EstoyCayendo(); // Si el personaje no puede saltar, significa que est谩 en el aire
         }
-
-
-        
-
-
-
     }
 
+    // Funci贸n que se llama cuando el personaje est谩 cayendo
     public void EstoyCayendo()
     {
+        // Si el personaje no puede saltar, significa que est谩 en el aire
         playerAnimController.SetBool("IsGrounded", false);
-        playerAnimController.SetBool("salte", false);
-        
+        playerAnimController.SetBool("salte", false); 
     }
-
-    
-
-    private void OnAnimatorMove()
-    {
-        
-    }
-
-
-
-    /*  //Funcion para la gravedad.
-
-      public void SetGravity()
-
-          //Si estamos tocando el suelo
-          if (player.isGrounded)
-    {
-          //La velocidad de ca韉a es igual a la gravedad en valor negativo * Time.deltaTime.
-          fallvelocity = -gravity * Time.deltaTime;
-          moveplayer.y = fallvelocity;
-    }
-    playerAnimController.SetBool(IsGrounded)
-    SlideDown(); //Llamamos a la funci髇 SlideDown() para comprobar si estamos en una pendiente
-
-
-     */
-
-
-    /*if (velocity != Vector3.zero)
-    {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(velocity), 0.2F);
-    }
-
-    transform.Translate(velocity * movementSpeed * Time.deltaTime, Space.World);
-}
-
-private void SpeedControl()
-{
-    Vector3 flatVel = new Vector3(rigidbody.velocity.x, 0f, rigidbody.velocity.z);
-    if (flatVel.magnitude > movementSpeed)
-    {
-        Vector3 limitedVel = flatVel.normalized * movementSpeed;
-        rigidbody.velocity = new Vector3(limitedVel.x, rigidbody.velocity.y, limitedVel.z);
-    }
-}*/
 }
